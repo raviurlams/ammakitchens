@@ -1,0 +1,7 @@
+{
+  "name": "ammakitchens",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
