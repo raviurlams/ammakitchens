@@ -1,7 +1,9 @@
 {
   "name": "ammakitchens",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "id": "93a3fa53"
 }
