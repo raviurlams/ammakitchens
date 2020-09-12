@@ -9,10 +9,10 @@ import * as AWS from 'aws-sdk';
 export class LoginPage implements OnInit {
 
   @ViewChild('email') email: any;
-  private username: string;
-  private password: string;
-  private error: string;
-  private awsBucket: any = {};
+  public username: string;
+  public password: string;
+  public error: string;
+  public awsBucket: any = {};
 
   constructor() { }
 
@@ -28,6 +28,10 @@ export class LoginPage implements OnInit {
     AWS.config.secretAccessKey = 'qLoNdNgfdUUEcB9wlmE09CtgEos04cPTSZVsXLl/';
     AWS.config.region = 'us-east-1';
     this.awsBucket = new AWS.DynamoDB();
+  }
+
+  login() {
+
   }
 
 }
