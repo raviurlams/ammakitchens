@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { akUtils } from '..//akUtils';
 import * as AWS from 'aws-sdk';
 
 @Component({
@@ -14,9 +15,10 @@ export class LoginPage implements OnInit {
   public error: string;
   public awsBucket: any = {};
 
-  constructor() { }
+  constructor(public akUtils: akUtils) { }
 
   ngOnInit() {
+    this.akUtils.setAWSOBject();
     this.setAWSOBject();
     setTimeout(() => {
       this.email.setFocus();
@@ -24,19 +26,16 @@ export class LoginPage implements OnInit {
   }
 
   setAWSOBject() {
-    AWS.config.accessKeyId = 'AKIAIT6MPCPLALDLP6HA';
-    AWS.config.secretAccessKey = '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';
-    AWS.config.region = 'us-east-1';
-    this.awsBucket = new AWS.S3({ apiVersion: '2006-03-01' });
+    // AWS.config.accessKeyId = 'AKIAIT6MPCPLALDLP6HA';
+    // AWS.config.secretAccessKey = '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';
+    // AWS.config.region = 'us-east-1';
+    //this.awsBucket = new AWS.S3({ apiVersion: '2006-03-01' });
     var dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
-
-
+    let itemObj = Object.assign({}, this.akUtils.getDefaultItem());
+    itemObj.customerAddress.S = "# 37 HSR Layout";
     var params = {
       TableName: 'customer',
-      Item: {
-        'customerID': { N: '001' },
-        'customerName': { S: 'Ganesh-Ayyappa' }
-      }
+      Item: itemObj
     };
     // dynamodb.putItem(params, function (err, data) {
     //   if (err) {
