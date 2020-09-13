@@ -41,7 +41,7 @@
               }
             ],
             "scripts": [
-              "src/assets/js/aws-sdk-2.7.16.min.js"
+              "src/assets/js/aws-sdk-2.751.0.min.js"
             ]
           },
           "configurations": {
