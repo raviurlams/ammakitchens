@@ -28,8 +28,6 @@ export class LoginPage {
     this.setAWSOBject();
     setTimeout(() => {
       this.email.setFocus();
-      this.genHash();
-      this.retriveSMS();
     }, 500);
     //this.restApi.sentOTP('8147683919', "ravindra app test ");
 
@@ -39,8 +37,6 @@ export class LoginPage {
     console.log('Watching SMS');
     this.smsRetriever.startWatching()
       .then((res: any) => {
-        console.log(res);
-        //  <#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl
         const otp = res.Message.toString().substr(4, 6);
         alert(`OTP Received - ${otp}`);
       })
@@ -91,7 +87,8 @@ export class LoginPage {
   sendMessage() {
     ///if (SMS) {
     SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
-      alert('Message sent successfully');
+      this.genHash();
+      this.retriveSMS();
     }, (error) => {
       alert(error);
     });

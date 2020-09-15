@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { akUtils } from './akUtils';
 import { HTTP } from '@ionic-native/http/ngx';
 import { SmsRetriever } from '@ionic-native/sms-retriever/ngx';
-import { SMS } from '@ionic-native/sms/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
     SmsRetriever,
     AndroidPermissions,
     HTTP,
-    SMS,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
