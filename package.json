@@ -92,7 +92,8 @@
       },
       "cordova-sms-plugin": {},
       "cordova-plugin-sms-retriever-manager": {},
-      "cordova-plugin-android-permissions": {}
+      "cordova-plugin-android-permissions": {},
+      "cordova-plugin-sms": {}
     },
     "platforms": [
       "windows",
