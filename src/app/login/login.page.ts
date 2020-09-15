@@ -53,7 +53,7 @@ export class LoginPage {
     this.smsRetriever.getAppHash()
       .then((res: any) => {
         console.log(res);
-        alert(res);
+        //alert('hash : '+res);
         this.hash = res;
       })
       .catch((error: any) => console.error(error));
@@ -90,7 +90,7 @@ export class LoginPage {
 
   sendMessage() {
     if (SMS) {
-      SMS.sendSMS("8147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
+      SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
         alert('Message sent successfully');
       }, (error) => {
         alert(error);
