@@ -88,7 +88,10 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "27.+"
-      }
+      },
+      "cordova-sms-plugin": {},
+      "cordova-plugin-sms-retriever-manager": {},
+      "cordova-plugin-android-permissions": {}
     },
     "platforms": [
       "windows",
