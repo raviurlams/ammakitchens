@@ -99,6 +99,7 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-sms-plugin" spec="^1.0.5" />
+    <plugin name="cordova-plugin-sms" spec="^1.0.5" />
     <plugin name="cordova-plugin-sms-retriever-manager" spec="1.0.2" />
     <plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
     <plugin name="cordova-android-support-gradle-release" spec="3.0.1">
