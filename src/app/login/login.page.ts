@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { akUtils } from '..//akUtils';
+import { ApiService } from "../api.service";
 import * as AWS from 'aws-sdk';
 
 @Component({
@@ -7,7 +8,7 @@ import * as AWS from 'aws-sdk';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   @ViewChild('email') email: any;
   public username: string;
@@ -15,14 +16,17 @@ export class LoginPage implements OnInit {
   public error: string;
   public awsBucket: any = {};
 
-  constructor(public akUtils: akUtils) { }
+  constructor(public akUtils: akUtils, private restApi: ApiService) { }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.akUtils.setAWSOBject();
     this.setAWSOBject();
     setTimeout(() => {
       this.email.setFocus();
     }, 500);
+    this.restApi.sentOTP('8147683919', "ravindra app test ").subscribe(response => {
+      console.log(response);
+    })
   }
 
   setAWSOBject() {
