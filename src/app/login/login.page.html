@@ -23,7 +23,9 @@
       <ion-col>
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <ion-button type="submit" color="danger" expand="block" [disabled]="!loginForm.form.valid">Sign In</ion-button>
-        <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
+        <a [routerLink]="['/forgot-password']" class="small-text pull-left">Forgot Password?</a>
+        <a [routerLink]="['/registration']" class="small-text pull-right
+        ">Sign Up?</a>
       </ion-col>
     </ion-row>
   </form>
