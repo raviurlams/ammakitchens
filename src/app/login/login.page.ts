@@ -86,7 +86,7 @@ export class LoginPage {
 
   sendMessage() {
     if (SMS) {
-      SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
+      SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for Amma Kitchens", () => {
         this.genHash();
         this.retriveSMS();
       }, (error) => {
