@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+declare var TeleSignSDK: any;
 export class Student {
   id: string;
   name: string;
@@ -15,22 +16,17 @@ export class Student {
   providedIn: 'root'
 })
 export class ApiService {
-  private WAY2SMS_SERVER_URL = "http://www.sms4india.com/api/v1/sendCampaign";
-  private smsAPIKEY = "HZRGF4PR9F1YY5CWND5QPPX41GID97WN";
-  private smsSecretKEY = "B8ICOVRX4D68KD66";
 
   httpHeader = {
     headers: new HttpHeaders({ 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT', 'Content-Type': 'application/json', "Accept": 'application/json', "Access-Control-Allow-Origin": "*" })
   };
 
+
+
   constructor(private http: HttpClient) { }
 
   sentOTP(phNumber, msg) {
-    const postData = { 'apikey': this.smsAPIKEY, 'secret': this.smsSecretKEY, "usetype": "stage", "senderid": "AKMess", "phone": phNumber, "message": msg }
-    return this.http.post<any>(this.WAY2SMS_SERVER_URL, postData, this.httpHeader)
-      .pipe(
-        catchError(this.handleError<Student>('Add Student'))
-      );
+
   }
   addStudent(student: Student): Observable<any> {
     return this.http.post<Student>('api-goes-here/', student, this.httpHeader)

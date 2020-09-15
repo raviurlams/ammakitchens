@@ -19,4 +19,6 @@ export class akUtils {
         AWS.config.region = 'us-east-1';
     }
 
+
+
 }
