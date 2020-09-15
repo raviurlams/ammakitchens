@@ -89,13 +89,13 @@ export class LoginPage {
   }
 
   sendMessage() {
-    if (SMS) {
-      SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
-        alert('Message sent successfully');
-      }, (error) => {
-        alert(error);
-      });
-    }
+    ///if (SMS) {
+    SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for MyApp. LDQEGVDEvcl", () => {
+      alert('Message sent successfully');
+    }, (error) => {
+      alert(error);
+    });
+    //}
   }
 
   setAWSOBject() {
