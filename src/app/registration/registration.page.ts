@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { SmsRetriever } from '@ionic-native/sms-retriever/ngx';
 import { akUtils } from '..//akUtils';
+import * as AWS from 'aws-sdk';
 declare var SMS: any;
 
 @Component({
@@ -12,12 +13,15 @@ declare var SMS: any;
 export class RegistrationPage implements OnInit {
   ionicForm: FormGroup;
   defaultDate = "05-05-1980";
-  isSubmitted = false;
   hash: any;
+  isFormValid: boolean = false;
+  public awsBucket: any = {};
+
   constructor(public formBuilder: FormBuilder, private smsRetriever: SmsRetriever, public akUtils: akUtils) { }
 
   ngOnInit() {
-    this.genHash();
+    this.akUtils.setAWSOBject();
+    this.retriveSMS();
     this.initializeForm();
   }
 
@@ -41,7 +45,8 @@ export class RegistrationPage implements OnInit {
       customerFatherOccupation: ['', [Validators.required, Validators.minLength(3)]],
       customerLocation: ['', [Validators.required, Validators.minLength(3)]],
       customerCollege: ['gayatri'],
-      customerYear: ['0'],
+      customerYear: ['5'],
+      acceptConditions: [null, [Validators.required]],
     })
   }
 
@@ -51,14 +56,29 @@ export class RegistrationPage implements OnInit {
       onlyself: true
     })
   }
+  acceptConditionsFn(e) {
+    if (e) {
+      if (this.ionicForm.value.acceptConditions == true) {
+
+      } else {
+        this.ionicForm.get('acceptConditions').setValue(null, {
+          onlyself: true
+        })
+      }
+    }
+  }
   onChangeAmount(e, column) {
     var regex = /^\d+$/;
     if (e) {
       if (regex.test(e) && Number(e) > 100) {
+        if (this.ionicForm.value.acceptConditions == false) {
+          this.isFormValid = false;
+        }
         this.ionicForm.get(column).setValue(Number(e), {
           onlyself: true
         })
       } else {
+        this.isFormValid = false;
         this.ionicForm.get(column).setValue('', {
           onlyself: true
         })
@@ -72,14 +92,34 @@ export class RegistrationPage implements OnInit {
   }
 
   submitForm() {
-    this.isSubmitted = true;
-    if (!this.ionicForm.valid) {
-      console.log('Please provide all the required values!')
+    this.isFormValid = false;
+    if (!this.ionicForm.valid && this.ionicForm.value.acceptConditions == false) {
+      this.isFormValid = false;
       return false;
     } else {
+      this.isFormValid = true;
+      let str = "New Joinee Name:" + this.ionicForm.value.customerName + "Ph #:" + this.ionicForm.value.customerPhNumber;
       let otp = Math.floor(100000 + Math.random() * 900000);
       this.sendMessage('+91' + this.ionicForm.value.customerPhNumber, otp);
+      this.sendMessage('918147683919', str);
     }
+  }
+
+  saveIntoAWSOBject() {
+    var dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+    let itemObj = Object.assign({}, this.akUtils.getDefaultItem());
+
+    var params = {
+      TableName: 'customer',
+      Item: itemObj
+    };
+    // dynamodb.putItem(params, function (err, data) {
+    //   if (err) {
+    //     console.log("Error", err);
+    //   } else {
+    //     console.log("Success", data);
+    //   }
+    // });
   }
 
   retriveSMS() {
@@ -96,8 +136,7 @@ export class RegistrationPage implements OnInit {
     // * @return {Promise<string>} Returns a promise that resolves when successfully generate hash of APP.
     this.smsRetriever.getAppHash()
       .then((res: any) => {
-        console.log(res);
-        //alert('hash : '+res);
+        alert('hash : ' + res);
         this.hash = res;
       })
       .catch((error: any) => console.error(error));
@@ -105,8 +144,7 @@ export class RegistrationPage implements OnInit {
 
   sendMessage(number, otp) {
     SMS.sendSMS(number, '<#> ' + otp + ' is your 6 digit OTP from Amma Kitchens', () => {
-
-      this.retriveSMS();
+      this.genHash();
     }, (error) => {
       alert(error);
     });

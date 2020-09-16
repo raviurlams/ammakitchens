@@ -180,9 +180,16 @@
       </ion-select>
     </ion-item>
 
+    <ion-item>
+      <ion-label color="danger">I have read and agree to the Terms and Conditions</ion-label>
+      <ion-checkbox slot="end" formControlName="acceptConditions" (ionChange)="acceptConditionsFn($event.target.value)">
+      </ion-checkbox>
+    </ion-item>
+
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block" [disabled]="!ionicForm.valid">Sign Up</ion-button>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!ionicForm.valid && !isFormValid">Sign Up
+        </ion-button>
       </ion-col>
     </ion-row>
   </form>

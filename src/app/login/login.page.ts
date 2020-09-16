@@ -25,7 +25,7 @@ export class LoginPage {
   ionViewDidEnter() {
     this.checkPermissionAndSend();
     this.akUtils.setAWSOBject();
-    this.genHash();
+    this.retriveSMS();
     setTimeout(() => {
       this.email.setFocus();
     }, 500);
@@ -76,17 +76,13 @@ export class LoginPage {
 
   sendMessage() {
     SMS.sendSMS("+918147683919", "Joining in to Amma Kitchens", () => {
-      this.retriveSMS();
+      this.genHash();
     }, (error) => {
       alert(error);
     });
   }
 
   setAWSOBject() {
-    // AWS.config.accessKeyId = 'AKIAIT6MPCPLALDLP6HA';
-    // AWS.config.secretAccessKey = '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';
-    // AWS.config.region = 'us-east-1';
-    //this.awsBucket = new AWS.S3({ apiVersion: '2006-03-01' });
     var dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
     let itemObj = Object.assign({}, this.akUtils.getDefaultItem());
     itemObj.customerAddress.S = "# 37 HSR Layout";
