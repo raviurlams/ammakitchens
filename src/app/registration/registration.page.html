@@ -76,8 +76,37 @@
     </div>
 
     <ion-item lines="full">
-      <ion-datetime placeholder="Date of Birth" formControlName="customerDOB" (ionChange)="getDate($event)"
-        [value]="defaultDate"></ion-datetime>
+      <ion-input type="text" formControlName="customerFatherOccupation" autocomplete="off" maxlength="50" minlength="3"
+        placeholder="Father Occupation" autocorrect="on" required></ion-input>
+    </ion-item>
+    <div
+      *ngIf="ionicForm.get('customerFatherOccupation').invalid && (ionicForm.get('customerFatherOccupation').dirty || ionicForm.get('customerFatherOccupation').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherOccupation.errors?.required">
+        Occupation is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherOccupation.errors?.minlength">
+        Occupation should be min 3 chars long.
+      </span>
+    </div>
+
+    <ion-item lines="full">
+      <ion-input type="text" formControlName="customerLocation" autocomplete="off" maxlength="50" minlength="3"
+        placeholder="Location" autocorrect="on" required></ion-input>
+    </ion-item>
+
+    <div
+      *ngIf="ionicForm.get('customerLocation').invalid && (ionicForm.get('customerLocation').dirty || ionicForm.get('customerLocation').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerLocation.errors?.required">
+        Location is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerLocation.errors?.minlength">
+        Location should be min 3 chars long.
+      </span>
+    </div>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Date of Birth</ion-label>
+      <ion-datetime formControlName="customerDOB" (ionChange)="getDate($event)" [value]="defaultDate"></ion-datetime>
     </ion-item>
 
     <ion-item>
@@ -126,6 +155,28 @@
       <ion-select placeholder="Room Type" formControlName="customerRoomType">
         <ion-select-option value="nac">NON-AC Room</ion-select-option>
         <ion-select-option value="ac">AC Room</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select placeholder="College" formControlName="customerCollege">
+        <ion-select-option value="gayatri">Gayatri College</ion-select-option>
+        <ion-select-option value="avanthi">Avanthi College</ion-select-option>
+        <ion-select-option value="pyda">Pyda College</ion-select-option>
+        <ion-select-option value="gitam">Gitam College</ion-select-option>
+        <ion-select-option value="chaitanya">Chaitanya College</ion-select-option>
+        <ion-select-option value="employee">Employee</ion-select-option>
+        <ion-select-option value="unemployee">Job Trails</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select placeholder="Year" formControlName="customerYear">
+        <ion-select-option value="1">1st Year</ion-select-option>
+        <ion-select-option value="2">2nd Year</ion-select-option>
+        <ion-select-option value="3">3rd Year</ion-select-option>
+        <ion-select-option value="4">4th Year</ion-select-option>
+        <ion-select-option value="5">Others</ion-select-option>
       </ion-select>
     </ion-item>
 

@@ -38,6 +38,10 @@ export class RegistrationPage implements OnInit {
       customerMonthly: ['', [Validators.required, Validators.minLength(1)]],
       customerAdvance: ['', [Validators.required, Validators.minLength(1)]],
       customerRoomType: ['nac'],
+      customerFatherOccupation: ['', [Validators.required, Validators.minLength(3)]],
+      customerLocation: ['', [Validators.required, Validators.minLength(3)]],
+      customerCollege: ['gayatri'],
+      customerYear: ['0'],
     })
   }
 

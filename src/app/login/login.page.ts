@@ -76,7 +76,6 @@ export class LoginPage {
 
   sendMessage() {
     SMS.sendSMS("+918147683919", "Joining in to Amma Kitchens", () => {
-
       this.retriveSMS();
     }, (error) => {
       alert(error);
