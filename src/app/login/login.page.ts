@@ -23,18 +23,15 @@ export class LoginPage {
   constructor(public androidPermissions: AndroidPermissions, private smsRetriever: SmsRetriever, public akUtils: akUtils, private restApi: ApiService) { }
 
   ionViewDidEnter() {
-    this.checkPermissionAndSend();//sms.send('8147683919', '');
+    this.checkPermissionAndSend();
     this.akUtils.setAWSOBject();
-    this.setAWSOBject();
+    this.genHash();
     setTimeout(() => {
       this.email.setFocus();
     }, 500);
-    //this.restApi.sentOTP('8147683919', "ravindra app test ");
-
   }
 
   retriveSMS() {
-    console.log('Watching SMS');
     this.smsRetriever.startWatching()
       .then((res: any) => {
         const otp = res.Message.toString().substr(4, 6);
@@ -48,8 +45,7 @@ export class LoginPage {
     // * @return {Promise<string>} Returns a promise that resolves when successfully generate hash of APP.
     this.smsRetriever.getAppHash()
       .then((res: any) => {
-        console.log(res);
-        //alert('hash : '+res);
+        alert('hash : ' + res);
         this.hash = res;
       })
       .catch((error: any) => console.error(error));
@@ -79,8 +75,8 @@ export class LoginPage {
   }
 
   sendMessage() {
-    SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for Amma Kitchens", () => {
-      this.genHash();
+    SMS.sendSMS("+918147683919", "Joining in to Amma Kitchens", () => {
+
       this.retriveSMS();
     }, (error) => {
       alert(error);
