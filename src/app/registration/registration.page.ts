@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { SmsRetriever } from '@ionic-native/sms-retriever/ngx';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { akUtils } from '..//akUtils';
 declare var SMS: any;
 
 @Component({
@@ -11,12 +11,15 @@ declare var SMS: any;
 })
 export class RegistrationPage implements OnInit {
   ionicForm: FormGroup;
-  defaultDate = "1980-05-05";
+  defaultDate = "05-05-1980";
   isSubmitted = false;
   hash: any;
-  constructor(public formBuilder: FormBuilder, private smsRetriever: SmsRetriever,) { }
+  inValidAmount = false;
+  inValidAmount2 = false;
+  constructor(public formBuilder: FormBuilder, private smsRetriever: SmsRetriever, public akUtils: akUtils) { }
 
   ngOnInit() {
+    this.genHash();
     this.initializeForm();
   }
 
@@ -24,13 +27,19 @@ export class RegistrationPage implements OnInit {
     this.ionicForm = this.formBuilder.group({
       customerName: ['', [Validators.required, Validators.minLength(5)]],
       customerFatherName: ['', [Validators.required, Validators.minLength(5)]],
-      customerPhNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      customerFatherPhNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      customerPhNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(10)]],
+      customerFatherPhNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(10)]],
       customerDOB: [this.defaultDate, [Validators.required]],
       customerDOJ: [new Date(), [Validators.required]],
       customerGender: ['m'],
-      customerAddressProof: ['', [Validators.required, Validators.minLength(5)]],
-
+      customerAddressProof: ['', [Validators.required, Validators.minLength(7)]],
+      customerAddress: ['sample', [Validators.required, Validators.maxLength(15)]],
+      customerID: [this.akUtils.generateUUID()],
+      customerIsPresent: [true],
+      customerLastLogin: [new Date()],
+      customerMonthly: ['', [Validators.required, Validators.minLength(1)]],
+      customerAdvance: ['', [Validators.required, Validators.minLength(1)]],
+      customerRoomType: ['nac'],
     })
   }
 
@@ -39,6 +48,25 @@ export class RegistrationPage implements OnInit {
     this.ionicForm.get('customerDOB').setValue(date, {
       onlyself: true
     })
+  }
+  onChangeAmount(e, column) {
+    this.inValidAmount = false;
+    this.inValidAmount2 = false;
+    var regex = /^\d+(?:\.\d{0,2})$/;
+    if (e && regex.test(e)) {
+      if (Number(e) > 100) {
+        this.ionicForm.get(column).setValue(Number(e), {
+          onlyself: true
+        })
+      } else {
+        this.inValidAmount = (column == 'customerMonthly') ? true : false;
+        this.inValidAmount2 = (column == 'customerAdvance') ? true : false;
+        this.ionicForm.get(column).setValue(0, {
+          onlyself: true
+        })
+      }
+    }
+
   }
 
   get errorControl() {
@@ -57,7 +85,6 @@ export class RegistrationPage implements OnInit {
   }
 
   retriveSMS() {
-    console.log('Watching SMS');
     this.smsRetriever.startWatching()
       .then((res: any) => {
         const otp = res.Message.toString().substr(4, 6);
@@ -80,7 +107,7 @@ export class RegistrationPage implements OnInit {
 
   sendMessage(number, otp) {
     SMS.sendSMS(number, '<#> ' + otp + ' is your 6 digit OTP from Amma Kitchens', () => {
-      this.genHash();
+
       this.retriveSMS();
     }, (error) => {
       alert(error);

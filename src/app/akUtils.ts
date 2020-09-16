@@ -19,6 +19,13 @@ export class akUtils {
         AWS.config.region = 'us-east-1';
     }
 
+    generateUUID() {
+        let uuid;
+        for (var i = 0; i < 5; i++) {
+            uuid = Date.now() + ((Math.random() * 100000).toFixed())
+        }
+        return Number(uuid);
+    };
 
 
 }

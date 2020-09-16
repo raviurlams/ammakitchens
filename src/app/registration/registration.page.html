@@ -14,50 +14,66 @@
         required>
       </ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerName.errors?.required">
-      Name is required.
-    </span>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerName.errors?.minlength">
-      Name should be min 5 chars long.
-    </span>
+    <div
+      *ngIf="ionicForm.get('customerName').invalid && (ionicForm.get('customerName').dirty || ionicForm.get('customerName').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerName.errors?.required">
+        Name is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerName.errors?.minlength">
+        Name should be min 5 chars long.
+      </span>
+    </div>
 
     <ion-item lines="full">
       <ion-input type="tel" formControlName="customerPhNumber" autocomplete="off" maxlength="10" minlength="10"
         placeholder="Mobile Number" required>
       </ion-input>
     </ion-item>
-
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerPhNumber.errors?.required">
-      Mobile number is required.
-    </span>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerPhNumber.errors?.pattern">
-      Only numerical values allowed.
-    </span>
+    <div
+      *ngIf="ionicForm.get('customerPhNumber').invalid && (ionicForm.get('customerPhNumber').dirty || ionicForm.get('customerPhNumber').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerPhNumber.errors?.required">
+        Mobile number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerPhNumber.errors?.minlength">
+        Valid Mobile number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerPhNumber.errors?.pattern">
+        Only numerical values allowed.
+      </span>
+    </div>
 
     <ion-item lines="full">
       <ion-input type="text" formControlName="customerFatherName" maxlength="50" autocomplete="off"
         placeholder="Father Name" required>
       </ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherName.errors?.required">
-      Name is required.
-    </span>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherName.errors?.minlength">
-      Name should be min 5 chars long.
-    </span>
+    <div
+      *ngIf="ionicForm.get('customerFatherName').invalid && (ionicForm.get('customerFatherName').dirty || ionicForm.get('customerFatherName').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherName.errors?.required">
+        Name is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherName.errors?.minlength">
+        Name should be min 5 chars long.
+      </span>
+    </div>
 
 
     <ion-item lines="full">
       <ion-input type="tel" formControlName="customerFatherPhNumber" autocomplete="off" maxlength="10" minlength="10"
         placeholder="Father Mobile Number" required></ion-input>
     </ion-item>
-
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherPhNumber.errors?.required">
-      Mobile number is required.
-    </span>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherPhNumber.errors?.pattern">
-      Only numerical values allowed.
-    </span>
+    <div
+      *ngIf="ionicForm.get('customerFatherPhNumber').invalid && (ionicForm.get('customerFatherPhNumber').dirty || ionicForm.get('customerFatherPhNumber').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherPhNumber.errors?.required">
+        Mobile number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherPhNumber.errors?.minlength">
+        Valid Mobile number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerFatherPhNumber.errors?.pattern">
+        Only numerical values allowed.
+      </span>
+    </div>
 
     <ion-item lines="full">
       <ion-datetime placeholder="Date of Birth" formControlName="customerDOB" (ionChange)="getDate($event)"
@@ -72,17 +88,56 @@
     </ion-item>
 
     <ion-item lines="full">
-      <ion-input type="text" placeholder="Address Proof Number" maxlength="50" minlength="5"
+      <ion-input type="text" placeholder="Aadhaar Card/Driving Licence #" maxlength="50" minlength="5"
         formControlName="customerAddressProof"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerAddressProof.errors?.required">
-      Address Proof is required.
+    <div
+      *ngIf="ionicForm.get('customerAddressProof').invalid && (ionicForm.get('customerAddressProof').dirty || ionicForm.get('customerAddressProof').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerAddressProof.errors?.required">
+        Address Proof is required.
+      </span>
+      <span class="error ion-padding" *ngIf="errorControl.customerAddressProof.errors?.minlength">
+        Valid Address Proof number is required.
+      </span>
+    </div>
+    <ion-item lines="full">
+      <ion-input type="text" placeholder="Monthly Amount" maxlength="5" minlength="1" formControlName="customerMonthly"
+        (ionBlur)='onChangeAmount($event.target.value,"customerMonthly")'>
+      </ion-input>
+    </ion-item>
+    <div
+      *ngIf="ionicForm.get('customerMonthly').invalid && (ionicForm.get('customerMonthly').dirty || ionicForm.get('customerMonthly').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerMonthly.errors?.required">
+        Monthly Amount is required.
+      </span>
+    </div>
+    <span class="error ion-padding" *ngIf="inValidAmount">
+      Valid Amount is required.
     </span>
-
+    <ion-item lines="full">
+      <ion-input type="text" placeholder="Advance Amount" maxlength="5" minlength="1" formControlName="customerAdvance"
+        (ionBlur)='onChangeAmount($event.target.value,"customerAdvance")'>
+      </ion-input>
+    </ion-item>
+    <div
+      *ngIf="ionicForm.get('customerAdvance').invalid && (ionicForm.get('customerAdvance').dirty || ionicForm.get('customerAdvance').touched)">
+      <span class="error ion-padding" *ngIf="errorControl.customerAdvance.errors?.required">
+        Monthly Amount is required.
+      </span>
+    </div>
+    <span class="error ion-padding" *ngIf="inValidAmount2">
+      Valid Amount is required.
+    </span>
+    <ion-item>
+      <ion-select placeholder="Room Type" formControlName="customerRoomType">
+        <ion-select-option value="nac">NON-AC Room</ion-select-option>
+        <ion-select-option value="ac">AC Room</ion-select-option>
+      </ion-select>
+    </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+        <ion-button type="submit" color="danger" expand="block" [disabled]="!ionicForm.valid">Sign Up</ion-button>
       </ion-col>
     </ion-row>
   </form>
