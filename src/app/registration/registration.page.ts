@@ -98,6 +98,7 @@ export class RegistrationPage implements OnInit {
       return false;
     } else {
       this.isFormValid = true;
+      this.saveIntoAWSOBject();
       let str = "New Joinee Name:" + this.ionicForm.value.customerName + "Ph #:" + this.ionicForm.value.customerPhNumber;
       let otp = Math.floor(100000 + Math.random() * 900000);
       this.sendMessage('+91' + this.ionicForm.value.customerPhNumber, otp);
