@@ -14,8 +14,6 @@ export class RegistrationPage implements OnInit {
   defaultDate = "05-05-1980";
   isSubmitted = false;
   hash: any;
-  inValidAmount = false;
-  inValidAmount2 = false;
   constructor(public formBuilder: FormBuilder, private smsRetriever: SmsRetriever, public akUtils: akUtils) { }
 
   ngOnInit() {
@@ -50,18 +48,14 @@ export class RegistrationPage implements OnInit {
     })
   }
   onChangeAmount(e, column) {
-    this.inValidAmount = false;
-    this.inValidAmount2 = false;
-    var regex = /^\d+(?:\.\d{0,2})$/;
-    if (e && regex.test(e)) {
-      if (Number(e) > 100) {
+    var regex = /^\d+$/;
+    if (e) {
+      if (regex.test(e) && Number(e) > 100) {
         this.ionicForm.get(column).setValue(Number(e), {
           onlyself: true
         })
       } else {
-        this.inValidAmount = (column == 'customerMonthly') ? true : false;
-        this.inValidAmount2 = (column == 'customerAdvance') ? true : false;
-        this.ionicForm.get(column).setValue(0, {
+        this.ionicForm.get(column).setValue('', {
           onlyself: true
         })
       }

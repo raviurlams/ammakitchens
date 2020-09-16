@@ -111,9 +111,6 @@
         Monthly Amount is required.
       </span>
     </div>
-    <span class="error ion-padding" *ngIf="inValidAmount">
-      Valid Amount is required.
-    </span>
     <ion-item lines="full">
       <ion-input type="text" placeholder="Advance Amount" maxlength="5" minlength="1" formControlName="customerAdvance"
         (ionBlur)='onChangeAmount($event.target.value,"customerAdvance")'>
@@ -125,9 +122,6 @@
         Monthly Amount is required.
       </span>
     </div>
-    <span class="error ion-padding" *ngIf="inValidAmount2">
-      Valid Amount is required.
-    </span>
     <ion-item>
       <ion-select placeholder="Room Type" formControlName="customerRoomType">
         <ion-select-option value="nac">NON-AC Room</ion-select-option>
