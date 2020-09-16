@@ -60,8 +60,8 @@
     </span>
 
     <ion-item lines="full">
-      <ion-label position="floating">DOB</ion-label>
-      <ion-datetime formControlName="customerDOB" (ionChange)="getDate($event)" [value]="defaultDate"></ion-datetime>
+      <ion-datetime placeholder="Date of Birth" formControlName="customerDOB" (ionChange)="getDate($event)"
+        [value]="defaultDate"></ion-datetime>
     </ion-item>
 
     <ion-item>
@@ -70,6 +70,15 @@
         <ion-select-option value="m">Male</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <ion-item lines="full">
+      <ion-input type="text" placeholder="Address Proof Number" maxlength="50" minlength="5"
+        formControlName="customerAddressProof"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerAddressProof.errors?.required">
+      Address Proof is required.
+    </span>
+
 
     <ion-row>
       <ion-col>
