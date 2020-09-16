@@ -106,20 +106,40 @@ export class RegistrationPage implements OnInit {
   }
 
   saveIntoAWSOBject() {
+    let formValue = this.ionicForm.value;
     var dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
     let itemObj = Object.assign({}, this.akUtils.getDefaultItem());
+    itemObj.customerName.S = formValue.customerName;
+    itemObj.customerFatherName.S = formValue.customerFatherName;
+    itemObj.customerPhNumber.S = formValue.customerPhNumber;
+    itemObj.customerFatherPhNumber.S = formValue.customerFatherPhNumber;
+    itemObj.customerDOB.S = formValue.customerDOB;
+    itemObj.customerDOJ.S = formValue.customerDOJ;
+    itemObj.customerGender.S = formValue.customerGender;
+    itemObj.customerAddressProof.S = formValue.customerAddressProof;
+    itemObj.customerAddress.S = formValue.customerAddress;
+    itemObj.customerID.N = formValue.customerID;
+    itemObj.customerLastLogin.S = formValue.customerLastLogin;
+    itemObj.customerMonthly.N = formValue.customerMonthly;
+    itemObj.customerAdvance.N = formValue.customerAdvance;
+    itemObj.customerRoomType.S = formValue.customerRoomType;
+    itemObj.customerFatherOccupation.S = formValue.customerFatherOccupation;
+    itemObj.customerLocation.S = formValue.customerLocation;
+    itemObj.customerCollege.S = formValue.customerCollege;
+    itemObj.customerYear.S = formValue.customerYear;
+    itemObj.acceptConditions.S = formValue.acceptConditions;
 
     var params = {
       TableName: 'customer',
       Item: itemObj
     };
-    // dynamodb.putItem(params, function (err, data) {
-    //   if (err) {
-    //     console.log("Error", err);
-    //   } else {
-    //     console.log("Success", data);
-    //   }
-    // });
+    dynamodb.putItem(params, function (err, data) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        console.log("Success", data);
+      }
+    });
   }
 
   retriveSMS() {
