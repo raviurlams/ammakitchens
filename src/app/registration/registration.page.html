@@ -8,25 +8,67 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">First name</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" formControlName="customerName" maxlength="50" autocomplete="off" placeholder="Your Name"
+        required>
+      </ion-input>
     </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerName.errors?.required">
+      Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerName.errors?.minlength">
+      Name should be min 5 chars long.
+    </span>
 
     <ion-item lines="full">
-      <ion-label position="floating">Last name</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="tel" formControlName="customerPhNumber" autocomplete="off" maxlength="10" minlength="10"
+        placeholder="Mobile Number" required>
+      </ion-input>
     </ion-item>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required></ion-input>
-    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerPhNumber.errors?.required">
+      Mobile number is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerPhNumber.errors?.pattern">
+      Only numerical values allowed.
+    </span>
 
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input type="text" formControlName="customerFatherName" maxlength="50" autocomplete="off"
+        placeholder="Father Name" required>
+      </ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherName.errors?.required">
+      Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherName.errors?.minlength">
+      Name should be min 5 chars long.
+    </span>
+
+
+    <ion-item lines="full">
+      <ion-input type="tel" formControlName="customerFatherPhNumber" autocomplete="off" maxlength="10" minlength="10"
+        placeholder="Father Mobile Number" required></ion-input>
+    </ion-item>
+
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherPhNumber.errors?.required">
+      Mobile number is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.customerFatherPhNumber.errors?.pattern">
+      Only numerical values allowed.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">DOB</ion-label>
+      <ion-datetime formControlName="customerDOB" (ionChange)="getDate($event)" [value]="defaultDate"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-select placeholder="Gender" formControlName="customerGender">
+        <ion-select-option value="f">Female</ion-select-option>
+        <ion-select-option value="m">Male</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-row>

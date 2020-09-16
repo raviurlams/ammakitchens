@@ -10,3 +10,4 @@ ionic cordova platform add android
 ionic cordova resources android
 ionic cordova prepare android
 ionic cordova run android
+autocorrect="off"

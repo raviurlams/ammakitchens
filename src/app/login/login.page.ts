@@ -62,37 +62,29 @@ export class LoginPage {
         if (!success.hasPermission) {
           this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS).
             then((success) => {
-              alert('hi')
               this.sendMessage();
             },
               (err) => {
-                alert("error1")
-                alert(err);
               });
         }
       },
       err => {
         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS).
           then((success) => {
-            alert('success')
             this.sendMessage();
           },
             (err) => {
-              alert('error2')
-              alert(err);
             });
       });
   }
 
   sendMessage() {
-    if (SMS) {
-      SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for Amma Kitchens", () => {
-        this.genHash();
-        this.retriveSMS();
-      }, (error) => {
-        alert(error);
-      });
-    }
+    SMS.sendSMS("+918147683919", "<#> 323741 is your 6 digit OTP for Amma Kitchens", () => {
+      this.genHash();
+      this.retriveSMS();
+    }, (error) => {
+      alert(error);
+    });
   }
 
   setAWSOBject() {
